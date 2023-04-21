@@ -99,7 +99,7 @@ public class ProductController {
     @PutMapping("/{id}")
     @ApiOperation(value = "Modificar producto")
     public ResponseEntity<?> update(@PathVariable Long id,
-                                    @Valid @RequestBody ProductDto productDto) throws IdNotFoundException {
+                                    @Valid @RequestBody ProductDto productDto) throws IdNotFoundException, NameAlreadyExistsException {
 
         Map<String, Object> response = new HashMap<>();
 

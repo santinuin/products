@@ -20,7 +20,7 @@ public interface ProductService {
 
     Product create(Product product) throws NameAlreadyExistsException;
 
-    Product update(Long id, Product product) throws IdNotFoundException;
+    Product update(Long id, Product product) throws IdNotFoundException, NameAlreadyExistsException;
 
     void delete(Long id) throws  IdNotFoundException;
 }

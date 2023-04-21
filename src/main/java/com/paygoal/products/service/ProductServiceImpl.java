@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -62,13 +63,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Product update(Long id, Product product) throws IdNotFoundException {
+    public Product update(Long id, Product product) throws IdNotFoundException, NameAlreadyExistsException {
 
         Product productToUpdate = this.repository.findById(id).orElse(null);
 
         if (productToUpdate == null) {
             throw new IdNotFoundException("Error: no se pudo editar, el producto ID: "
                     .concat(id.toString().concat(" no existe.")));
+        }
+
+        Product productByName = this.repository.findByNameIgnoreCase(product.getName());
+
+        if(productByName != null && !Objects.equals(productByName.getName(), productToUpdate.getName())){
+            throw new NameAlreadyExistsException("Error: no se pudo crear, el nombre: ".concat(product.getName().concat(" ya existe.")));
         }
 
         productToUpdate.setName(product.getName());
