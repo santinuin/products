@@ -3,6 +3,7 @@ package com.paygoal.products.controller;
 import com.paygoal.products.business.dto.ProductDto;
 import com.paygoal.products.business.mapper.ProductMapper;
 import com.paygoal.products.domain.Product;
+import com.paygoal.products.exception.IdNotFoundException;
 import com.paygoal.products.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +41,7 @@ public class ProductController {
     }
 
     @PostMapping("/crear")
-    public  ResponseEntity<?> create(@Valid @RequestBody ProductDto productDto) {
-
+    public ResponseEntity<?> create(@Valid @RequestBody ProductDto productDto) {
 
         Map<String, Object> response = new HashMap<>();
 
@@ -51,6 +51,20 @@ public class ProductController {
         response.put("product", newProduct);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id,
+                                    @Valid @RequestBody ProductDto productDto) throws IdNotFoundException {
+
+        Map<String, Object> response = new HashMap<>();
+
+        Product updatedProduct = this.service.update(id, this.mapper.toEntity(productDto));
+
+        response.put("message", "El producto ID: " + updatedProduct.getId() + " ha sido modificado con éxito");
+        response.put("product", updatedProduct);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

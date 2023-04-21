@@ -48,9 +48,6 @@ public class ProductMapperImpl implements ProductMapper {
             return product;
         }
 
-        if (productDTO.getId() != null) {
-            product.setId(productDTO.getId());
-        }
         if (productDTO.getName() != null) {
             product.setName(productDTO.getName());
         }
