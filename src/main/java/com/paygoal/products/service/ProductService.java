@@ -9,6 +9,10 @@ public interface ProductService {
 
     List<Product> findAll();
 
+    List<Product> findAllByOrderByPriceAsc();
+
+    List<Product> findAllByOrderByPriceDesc();
+
     Product findById(Long id);
 
     Product create(Product product);

@@ -29,14 +29,33 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<?> findAll() {
+    public ResponseEntity<?> list(@RequestParam(required = false) Boolean orderedByPrice) {
 
-        List<ProductDto> productDtoList = this.service.findAll()
+        if (orderedByPrice == null) {
+            List<ProductDto> productDtoList = this.service.findAll()
+                    .stream()
+                    .map(this.mapper::toDto)
+                    .collect(Collectors.toList());
+
+            return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+        }
+
+        if (orderedByPrice) {
+            List<ProductDto> productDtoList = this.service.findAllByOrderByPriceAsc()
+                    .stream()
+                    .map(this.mapper::toDto)
+                    .collect(Collectors.toList());
+
+            return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+        }
+
+        List<ProductDto> productDtoList = this.service.findAllByOrderByPriceDesc()
                 .stream()
                 .map(this.mapper::toDto)
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+
 
     }
 

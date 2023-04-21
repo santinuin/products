@@ -24,6 +24,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findAllByOrderByPriceAsc() {
+        return this.repository.findAllByOrderByPriceAsc();
+    }
+
+    @Override
+    public List<Product> findAllByOrderByPriceDesc() {
+        return this.repository.findAllByOrderByPriceDesc();
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Product findById(Long id) {
         return repository.findById(id).orElse(null);
