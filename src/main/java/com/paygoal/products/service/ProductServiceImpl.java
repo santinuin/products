@@ -2,6 +2,7 @@ package com.paygoal.products.service;
 
 import com.paygoal.products.domain.Product;
 import com.paygoal.products.exception.IdNotFoundException;
+import com.paygoal.products.exception.NameAlreadyExistsException;
 import com.paygoal.products.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +49,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Product create(Product product) {
+    public Product create(Product product) throws NameAlreadyExistsException {
+
+        Product productByName = this.repository.findByNameIgnoreCase(product.getName());
+
+        if(productByName != null){
+            throw new NameAlreadyExistsException("Error: no se pudo crear, el nombre: ".concat(product.getName().concat(" ya existe.")));
+        }
+
         return this.repository.save(product);
     }
 

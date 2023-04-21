@@ -4,6 +4,7 @@ import com.paygoal.products.business.dto.ProductDto;
 import com.paygoal.products.business.mapper.ProductMapper;
 import com.paygoal.products.domain.Product;
 import com.paygoal.products.exception.IdNotFoundException;
+import com.paygoal.products.exception.NameAlreadyExistsException;
 import com.paygoal.products.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -83,7 +84,7 @@ public class ProductController {
 
     @PostMapping("/crear")
     @ApiOperation(value = "Crear producto nuevo")
-    public ResponseEntity<?> create(@Valid @RequestBody ProductDto productDto) {
+    public ResponseEntity<?> create(@Valid @RequestBody ProductDto productDto) throws NameAlreadyExistsException {
 
         Map<String, Object> response = new HashMap<>();
 
