@@ -7,7 +7,6 @@ import com.paygoal.products.exception.IdNotFoundException;
 import com.paygoal.products.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -101,7 +100,7 @@ public class ProductController {
     }
 
     @DeleteMapping("eliminar/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) throws IdNotFoundException {
+    public ResponseEntity<?> deleteById(@PathVariable Long id) throws IdNotFoundException {
 
         Map<String, Object> response = new HashMap<>();
 
@@ -109,7 +108,7 @@ public class ProductController {
 
         response.put("message", "El producto ID: " + id + " ha sido eliminado con éxito");
 
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
     }
 
 }
