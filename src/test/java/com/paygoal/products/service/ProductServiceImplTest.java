@@ -2,6 +2,7 @@ package com.paygoal.products.service;
 
 import com.paygoal.products.domain.Product;
 import com.paygoal.products.exception.IdNotFoundException;
+import com.paygoal.products.exception.NameAlreadyExistsException;
 import com.paygoal.products.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -104,7 +105,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void create() {
+    void create() throws NameAlreadyExistsException {
         Product newProduct = new Product(6L, "Celular", "El mejor celular del mundo", new BigDecimal("150000.00"), 5);
         when(repository.save(newProduct))
                 .thenReturn(newProduct);
@@ -116,7 +117,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void update() throws IdNotFoundException {
+    void update() throws IdNotFoundException, NameAlreadyExistsException {
         Product updatedProduct = new Product(2L, "Smart TV", "Tv con calidad Full HD", new BigDecimal("120000.99"), 7);
         when(repository.findById(2L)).thenReturn(Optional.ofNullable(products.get(1)));
         when(repository.save(products.get(1))).thenReturn(updatedProduct);

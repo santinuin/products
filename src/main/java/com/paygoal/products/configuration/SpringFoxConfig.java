@@ -15,14 +15,14 @@ import java.util.Collections;
 public class SpringFoxConfig {
 
     @Bean
-    public Docket api(){
+    public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.paygoal.products.controller"))
                 .paths(PathSelectors.any()).build();
     }
 
-    private ApiInfo apiInfo(){
+    private ApiInfo apiInfo() {
         return new ApiInfo(
                 "Products API",
                 "APIRest construida con Spring - Backend",

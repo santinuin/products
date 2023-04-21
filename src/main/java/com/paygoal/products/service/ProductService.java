@@ -22,5 +22,5 @@ public interface ProductService {
 
     Product update(Long id, Product product) throws IdNotFoundException, NameAlreadyExistsException;
 
-    void delete(Long id) throws  IdNotFoundException;
+    void delete(Long id) throws IdNotFoundException;
 }

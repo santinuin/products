@@ -54,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product productByName = this.repository.findByNameIgnoreCase(product.getName());
 
-        if(productByName != null){
+        if (productByName != null) {
             throw new NameAlreadyExistsException("Error: no se pudo crear, el nombre: ".concat(product.getName().concat(" ya existe.")));
         }
 
@@ -74,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product productByName = this.repository.findByNameIgnoreCase(product.getName());
 
-        if(productByName != null && !Objects.equals(productByName.getName(), productToUpdate.getName())){
+        if (productByName != null && !Objects.equals(productByName.getName(), productToUpdate.getName())) {
             throw new NameAlreadyExistsException("Error: no se pudo crear, el nombre: ".concat(product.getName().concat(" ya existe.")));
         }
 
