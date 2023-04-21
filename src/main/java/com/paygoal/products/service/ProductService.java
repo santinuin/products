@@ -15,6 +15,8 @@ public interface ProductService {
 
     Product findById(Long id);
 
+    Product findByName(String name);
+
     Product create(Product product);
 
     Product update(Long id, Product product) throws IdNotFoundException;

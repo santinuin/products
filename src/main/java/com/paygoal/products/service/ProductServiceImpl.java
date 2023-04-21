@@ -24,11 +24,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Product> findAllByOrderByPriceAsc() {
         return this.repository.findAllByOrderByPriceAsc();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Product> findAllByOrderByPriceDesc() {
         return this.repository.findAllByOrderByPriceDesc();
     }
@@ -36,13 +38,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public Product findById(Long id) {
-        return repository.findById(id).orElse(null);
+        return this.repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Product findByName(String name) {
+        return this.repository.findByNameIgnoreCase(name);
     }
 
     @Override
     @Transactional
     public Product create(Product product) {
-        return repository.save(product);
+        return this.repository.save(product);
     }
 
     @Override
@@ -64,6 +71,8 @@ public class ProductServiceImpl implements ProductService {
         return this.repository.save(productToUpdate);
     }
 
+    @Override
+    @Transactional
     public void delete(Long id) throws IdNotFoundException {
 
         Product productToDelete = this.repository.findById(id).orElse(null);

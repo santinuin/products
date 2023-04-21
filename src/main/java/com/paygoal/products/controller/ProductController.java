@@ -7,6 +7,7 @@ import com.paygoal.products.exception.IdNotFoundException;
 import com.paygoal.products.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -56,7 +57,20 @@ public class ProductController {
 
         return new ResponseEntity<>(productDtoList, HttpStatus.OK);
 
+    }
 
+    @GetMapping("/buscar")
+    public ResponseEntity<?> findByIdOrName(@RequestParam(required = false) Long id,
+                                            @RequestParam(required = false) String name){
+        if (id != null){
+            ProductDto productDto = this.mapper.toDto(this.service.findById(id));
+
+            return new ResponseEntity<>(productDto, HttpStatus.OK);
+        }
+
+        ProductDto productDto = this.mapper.toDto(this.service.findByName(name));
+
+        return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
 
     @PostMapping("/crear")
