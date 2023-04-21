@@ -2,6 +2,7 @@ package com.paygoal.products.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
@@ -22,7 +23,7 @@ public class Product {
     private String description;
 
     @Column(precision = 10, scale = 2)
-    @NotBlank
+    @NotNull
     private BigDecimal price;
 
     private Integer quantity;

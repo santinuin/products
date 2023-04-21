@@ -2,7 +2,9 @@ package com.paygoal.products.business.mapper;
 
 import com.paygoal.products.business.dto.ProductDto;
 import com.paygoal.products.domain.Product;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductMapperImpl implements ProductMapper {
     @Override
     public Product toEntity(ProductDto productDto) {

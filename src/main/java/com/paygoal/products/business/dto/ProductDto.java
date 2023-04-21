@@ -1,6 +1,7 @@
 package com.paygoal.products.business.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,7 +19,7 @@ public class ProductDto implements Serializable {
     @Size(max = 255)
     private String description;
 
-    @NotBlank
+    @NotNull
     private BigDecimal price;
 
     private Integer quantity;
