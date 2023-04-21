@@ -1,19 +1,16 @@
-package com.paygoal.products.domain.entity;
+package com.paygoal.products.business.dto;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
-@Entity
-@Table(name = "products")
-public class Product {
+public class ProductDto implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false, length = 30)
     @Size(max = 30)
     @NotBlank
     private String name;
@@ -21,16 +18,15 @@ public class Product {
     @Size(max = 255)
     private String description;
 
-    @Column(precision = 10, scale = 2)
     @NotBlank
     private BigDecimal price;
 
     private Integer quantity;
 
-    public Product() {
+    public ProductDto() {
     }
 
-    public Product(Long id, String name, String description, BigDecimal price, Integer quantity) {
+    public ProductDto(Long id, String name, String description, BigDecimal price, Integer quantity) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -77,4 +73,24 @@ public class Product {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductDto that = (ProductDto) o;
+        return Objects.equals(this.id, that.id) &&
+                Objects.equals(this.name, that.name) &&
+                Objects.equals(this.description, that.description) &&
+                Objects.equals(this.price, that.price) &&
+                Objects.equals(this.quantity, that.quantity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, price, quantity);
+    }
+
+    @Serial
+    private static final long serialVersionUID = 5833648854748677794L;
 }
