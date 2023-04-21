@@ -1,2 +1,2 @@
 # products
-Product API for job application
+Product API for job application (PayGoal)
