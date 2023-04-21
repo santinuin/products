@@ -67,4 +67,16 @@ public class ProductController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @DeleteMapping("eliminar/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) throws IdNotFoundException {
+
+        Map<String, Object> response = new HashMap<>();
+
+        this.service.delete(id);
+
+        response.put("message", "El producto ID: " + id + " ha sido eliminado con éxito");
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
 }

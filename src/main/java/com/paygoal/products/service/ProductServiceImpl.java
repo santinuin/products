@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
 
@@ -18,12 +18,13 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Product> findAll() {
         return this.repository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Product findById(Long id) {
         return repository.findById(id).orElse(null);
     }
@@ -35,11 +36,12 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    @Transactional
     public Product update(Long id, Product product) throws IdNotFoundException {
 
         Product productToUpdate = this.repository.findById(id).orElse(null);
 
-        if(productToUpdate == null){
+        if (productToUpdate == null) {
             throw new IdNotFoundException("Error: no se pudo editar, el producto ID: "
                     .concat(id.toString().concat(" no existe.")));
         }
@@ -51,4 +53,17 @@ public class ProductServiceImpl implements ProductService{
 
         return this.repository.save(productToUpdate);
     }
+
+    public void delete(Long id) throws IdNotFoundException {
+
+        Product productToDelete = this.repository.findById(id).orElse(null);
+
+        if (productToDelete == null) {
+            throw new IdNotFoundException("Error: no se pudo eliminar, el producto ID: "
+                    .concat(id.toString().concat(" no existe.")));
+        }
+
+        this.repository.deleteById(id);
+    }
+
 }

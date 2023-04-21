@@ -14,4 +14,6 @@ public interface ProductService {
     Product create(Product product);
 
     Product update(Long id, Product product) throws IdNotFoundException;
+
+    void delete(Long id) throws  IdNotFoundException;
 }
