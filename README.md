@@ -2,7 +2,7 @@
 Product API for job application (PayGoal)
 
 - Java · Spring
-- Junit5 · Mockitoo
+- Junit5 · Mockito
 - Swagger · SpringFox
 - JPA · Hibernate
 - Maven
